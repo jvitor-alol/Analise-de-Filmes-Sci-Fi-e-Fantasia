@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  tmdb_data_extract:
+    build:
+      context: .
+    volumes:
+      - ./logs:/app/logs
+      - ./local-output:/app/output
+    stdin_open: true
+    tty: true
+    env_file:
+      - .env
+    environment:
+      TZ: America/Sao_Paulo # Definindo TimeZone para os logs

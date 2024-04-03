@@ -1,0 +1,597 @@
+timestamp,message
+1711582012676,"INIT_START Runtime Version: python:3.12.v21	Runtime Version ARN: arn:aws:lambda:us-east-1::runtime:0087788f33e3d6b95522422d734bb2b31308197021920fd844db09552d6fa015
+"
+1711582016331,"START RequestId: be5cf8c6-9dfc-4ef5-ad16-8959e035c908 Version: $LATEST
+"
+1711582023670,"Listando as IDs dos filmes em movies.csv
+"
+1711582027933,"14303 IDs distintos encontrados
+"
+1711582027977,"Recuperando dados do TMDB
+"
+1711582030366,"Batch processado | [1/287]
+"
+1711582032739,"Batch processado | [2/287]
+"
+1711582035120,"Batch processado | [3/287]
+"
+1711582037489,"Batch processado | [4/287]
+"
+1711582039864,"Batch processado | [5/287]
+"
+1711582042243,"Batch processado | [6/287]
+"
+1711582044564,"Batch processado | [7/287]
+"
+1711582046865,"Batch processado | [8/287]
+"
+1711582049252,"Batch processado | [9/287]
+"
+1711582051600,"Batch processado | [10/287]
+"
+1711582053965,"Batch processado | [11/287]
+"
+1711582056326,"Batch processado | [12/287]
+"
+1711582058690,"Batch processado | [13/287]
+"
+1711582061044,"Batch processado | [14/287]
+"
+1711582063487,"Batch processado | [15/287]
+"
+1711582065878,"Batch processado | [16/287]
+"
+1711582068288,"Batch processado | [17/287]
+"
+1711582070611,"Batch processado | [18/287]
+"
+1711582073035,"Batch processado | [19/287]
+"
+1711582075444,"Batch processado | [20/287]
+"
+1711582077838,"Batch processado | [21/287]
+"
+1711582080199,"Batch processado | [22/287]
+"
+1711582082549,"Batch processado | [23/287]
+"
+1711582084994,"Batch processado | [24/287]
+"
+1711582087333,"Batch processado | [25/287]
+"
+1711582089659,"Batch processado | [26/287]
+"
+1711582092100,"Batch processado | [27/287]
+"
+1711582094452,"Batch processado | [28/287]
+"
+1711582096888,"Batch processado | [29/287]
+"
+1711582099190,"Batch processado | [30/287]
+"
+1711582101640,"Batch processado | [31/287]
+"
+1711582104064,"Batch processado | [32/287]
+"
+1711582106354,"Batch processado | [33/287]
+"
+1711582108714,"Batch processado | [34/287]
+"
+1711582111163,"Batch processado | [35/287]
+"
+1711582113499,"Batch processado | [36/287]
+"
+1711582115858,"Batch processado | [37/287]
+"
+1711582118231,"Batch processado | [38/287]
+"
+1711582120593,"Batch processado | [39/287]
+"
+1711582122950,"Batch processado | [40/287]
+"
+1711582125284,"Batch processado | [41/287]
+"
+1711582127650,"Batch processado | [42/287]
+"
+1711582130029,"Batch processado | [43/287]
+"
+1711582132405,"Batch processado | [44/287]
+"
+1711582134719,"Batch processado | [45/287]
+"
+1711582137086,"Batch processado | [46/287]
+"
+1711582139410,"Batch processado | [47/287]
+"
+1711582141747,"Batch processado | [48/287]
+"
+1711582144257,"Batch processado | [49/287]
+"
+1711582146594,"Batch processado | [50/287]
+"
+1711582148979,"Batch processado | [51/287]
+"
+1711582151328,"Batch processado | [52/287]
+"
+1711582153728,"Batch processado | [53/287]
+"
+1711582156125,"Batch processado | [54/287]
+"
+1711582158502,"Batch processado | [55/287]
+"
+1711582160896,"Batch processado | [56/287]
+"
+1711582163213,"Batch processado | [57/287]
+"
+1711582165575,"Batch processado | [58/287]
+"
+1711582167856,"Batch processado | [59/287]
+"
+1711582179746,"Batch processado | [60/287]
+"
+1711582182056,"Batch processado | [61/287]
+"
+1711582184399,"Batch processado | [62/287]
+"
+1711582186690,"Batch processado | [63/287]
+"
+1711582188998,"Batch processado | [64/287]
+"
+1711582191294,"Batch processado | [65/287]
+"
+1711582193656,"Batch processado | [66/287]
+"
+1711582214961,"Batch processado | [67/287]
+"
+1711582217310,"Batch processado | [68/287]
+"
+1711582219663,"Batch processado | [69/287]
+"
+1711582222019,"Batch processado | [70/287]
+"
+1711582224363,"Batch processado | [71/287]
+"
+1711582226748,"Batch processado | [72/287]
+"
+1711582229135,"Batch processado | [73/287]
+"
+1711582231479,"Batch processado | [74/287]
+"
+1711582233897,"Batch processado | [75/287]
+"
+1711582236322,"Batch processado | [76/287]
+"
+1711582238633,"Batch processado | [77/287]
+"
+1711582240997,"Batch processado | [78/287]
+"
+1711582243453,"Batch processado | [79/287]
+"
+1711582245823,"Batch processado | [80/287]
+"
+1711582248215,"Batch processado | [81/287]
+"
+1711582250551,"Batch processado | [82/287]
+"
+1711582252923,"Batch processado | [83/287]
+"
+1711582255333,"Batch processado | [84/287]
+"
+1711582257689,"Batch processado | [85/287]
+"
+1711582260038,"Batch processado | [86/287]
+"
+1711582262368,"Batch processado | [87/287]
+"
+1711582264809,"Batch processado | [88/287]
+"
+1711582267178,"Batch processado | [89/287]
+"
+1711582269613,"Batch processado | [90/287]
+"
+1711582271997,"Batch processado | [91/287]
+"
+1711582274440,"Batch processado | [92/287]
+"
+1711582276823,"Batch processado | [93/287]
+"
+1711582279132,"Batch processado | [94/287]
+"
+1711582281523,"Batch processado | [95/287]
+"
+1711582283879,"Batch processado | [96/287]
+"
+1711582286253,"Batch processado | [97/287]
+"
+1711582288651,"Batch processado | [98/287]
+"
+1711582291062,"Batch processado | [99/287]
+"
+1711582293416,"Batch processado | [100/287]
+"
+1711582295816,"Batch processado | [101/287]
+"
+1711582298225,"Batch processado | [102/287]
+"
+1711582300598,"Batch processado | [103/287]
+"
+1711582302934,"Batch processado | [104/287]
+"
+1711582305329,"Batch processado | [105/287]
+"
+1711582307723,"Batch processado | [106/287]
+"
+1711582310200,"Batch processado | [107/287]
+"
+1711582312592,"Batch processado | [108/287]
+"
+1711582314967,"Batch processado | [109/287]
+"
+1711582317340,"Batch processado | [110/287]
+"
+1711582319687,"Batch processado | [111/287]
+"
+1711582322038,"Batch processado | [112/287]
+"
+1711582324450,"Batch processado | [113/287]
+"
+1711582326867,"Batch processado | [114/287]
+"
+1711582329262,"Batch processado | [115/287]
+"
+1711582331609,"Batch processado | [116/287]
+"
+1711582334010,"Batch processado | [117/287]
+"
+1711582336348,"Batch processado | [118/287]
+"
+1711582338708,"Batch processado | [119/287]
+"
+1711582341084,"Batch processado | [120/287]
+"
+1711582343568,"Batch processado | [121/287]
+"
+1711582345852,"Batch processado | [122/287]
+"
+1711582348192,"Batch processado | [123/287]
+"
+1711582350533,"Batch processado | [124/287]
+"
+1711582352878,"Batch processado | [125/287]
+"
+1711582355187,"Batch processado | [126/287]
+"
+1711582357557,"Batch processado | [127/287]
+"
+1711582359934,"Batch processado | [128/287]
+"
+1711582362347,"Batch processado | [129/287]
+"
+1711582364761,"Batch processado | [130/287]
+"
+1711582367131,"Batch processado | [131/287]
+"
+1711582369472,"Batch processado | [132/287]
+"
+1711582371838,"Batch processado | [133/287]
+"
+1711582374201,"Batch processado | [134/287]
+"
+1711582376549,"Batch processado | [135/287]
+"
+1711582378926,"Batch processado | [136/287]
+"
+1711582381308,"Batch processado | [137/287]
+"
+1711582383663,"Batch processado | [138/287]
+"
+1711582385939,"Batch processado | [139/287]
+"
+1711582388315,"Batch processado | [140/287]
+"
+1711582390653,"Batch processado | [141/287]
+"
+1711582393180,"Batch processado | [142/287]
+"
+1711582395562,"Batch processado | [143/287]
+"
+1711582398101,"Batch processado | [144/287]
+"
+1711582400469,"Batch processado | [145/287]
+"
+1711582402771,"Batch processado | [146/287]
+"
+1711582405128,"Batch processado | [147/287]
+"
+1711582407479,"Batch processado | [148/287]
+"
+1711582409849,"Batch processado | [149/287]
+"
+1711582412220,"Batch processado | [150/287]
+"
+1711582414606,"Batch processado | [151/287]
+"
+1711582417022,"Batch processado | [152/287]
+"
+1711582419402,"Batch processado | [153/287]
+"
+1711582421697,"Batch processado | [154/287]
+"
+1711582424063,"Batch processado | [155/287]
+"
+1711582426547,"Batch processado | [156/287]
+"
+1711582428935,"Batch processado | [157/287]
+"
+1711582431387,"Batch processado | [158/287]
+"
+1711582433749,"Batch processado | [159/287]
+"
+1711582436099,"Batch processado | [160/287]
+"
+1711582438447,"Batch processado | [161/287]
+"
+1711582440823,"Batch processado | [162/287]
+"
+1711582443132,"Batch processado | [163/287]
+"
+1711582445468,"Batch processado | [164/287]
+"
+1711582447887,"Batch processado | [165/287]
+"
+1711582450337,"Batch processado | [166/287]
+"
+1711582452935,"Batch processado | [167/287]
+"
+1711582455342,"Batch processado | [168/287]
+"
+1711582457953,"Batch processado | [169/287]
+"
+1711582460278,"Batch processado | [170/287]
+"
+1711582462655,"Batch processado | [171/287]
+"
+1711582464998,"Batch processado | [172/287]
+"
+1711582467358,"Batch processado | [173/287]
+"
+1711582469768,"Batch processado | [174/287]
+"
+1711582472124,"Batch processado | [175/287]
+"
+1711582474443,"Batch processado | [176/287]
+"
+1711582476772,"Batch processado | [177/287]
+"
+1711582479145,"Batch processado | [178/287]
+"
+1711582481519,"Batch processado | [179/287]
+"
+1711582483901,"Batch processado | [180/287]
+"
+1711582486234,"Batch processado | [181/287]
+"
+1711582488507,"Batch processado | [182/287]
+"
+1711582490832,"Batch processado | [183/287]
+"
+1711582493116,"Batch processado | [184/287]
+"
+1711582495389,"Batch processado | [185/287]
+"
+1711582497663,"Batch processado | [186/287]
+"
+1711582500023,"Batch processado | [187/287]
+"
+1711582502334,"Batch processado | [188/287]
+"
+1711582504645,"Batch processado | [189/287]
+"
+1711582506968,"Batch processado | [190/287]
+"
+1711582509305,"Batch processado | [191/287]
+"
+1711582511750,"Batch processado | [192/287]
+"
+1711582514125,"Batch processado | [193/287]
+"
+1711582516552,"Batch processado | [194/287]
+"
+1711582518933,"Batch processado | [195/287]
+"
+1711582521271,"Batch processado | [196/287]
+"
+1711582523644,"Batch processado | [197/287]
+"
+1711582526076,"Batch processado | [198/287]
+"
+1711582528475,"Batch processado | [199/287]
+"
+1711582530775,"Batch processado | [200/287]
+"
+1711582533144,"Batch processado | [201/287]
+"
+1711582535499,"Batch processado | [202/287]
+"
+1711582537841,"Batch processado | [203/287]
+"
+1711582540166,"Batch processado | [204/287]
+"
+1711582542638,"Batch processado | [205/287]
+"
+1711582545028,"Batch processado | [206/287]
+"
+1711582547367,"Batch processado | [207/287]
+"
+1711582549897,"Batch processado | [208/287]
+"
+1711582552248,"Batch processado | [209/287]
+"
+1711582554633,"Batch processado | [210/287]
+"
+1711582557005,"Batch processado | [211/287]
+"
+1711582559483,"Batch processado | [212/287]
+"
+1711582561807,"Batch processado | [213/287]
+"
+1711582564171,"Batch processado | [214/287]
+"
+1711582566543,"Batch processado | [215/287]
+"
+1711582568852,"Batch processado | [216/287]
+"
+1711582571315,"Batch processado | [217/287]
+"
+1711582573739,"Batch processado | [218/287]
+"
+1711582576182,"Batch processado | [219/287]
+"
+1711582578541,"Batch processado | [220/287]
+"
+1711582580922,"Batch processado | [221/287]
+"
+1711582583259,"Batch processado | [222/287]
+"
+1711582585635,"Batch processado | [223/287]
+"
+1711582587939,"Batch processado | [224/287]
+"
+1711582590271,"Batch processado | [225/287]
+"
+1711582592715,"Batch processado | [226/287]
+"
+1711582595147,"Batch processado | [227/287]
+"
+1711582597535,"Batch processado | [228/287]
+"
+1711582599887,"Batch processado | [229/287]
+"
+1711582602288,"Batch processado | [230/287]
+"
+1711582604730,"Batch processado | [231/287]
+"
+1711582607197,"Batch processado | [232/287]
+"
+1711582609553,"Batch processado | [233/287]
+"
+1711582611885,"Batch processado | [234/287]
+"
+1711582614289,"Batch processado | [235/287]
+"
+1711582616675,"Batch processado | [236/287]
+"
+1711582619168,"Batch processado | [237/287]
+"
+1711582621554,"Batch processado | [238/287]
+"
+1711582623919,"Batch processado | [239/287]
+"
+1711582626300,"Batch processado | [240/287]
+"
+1711582628743,"Batch processado | [241/287]
+"
+1711582631131,"Batch processado | [242/287]
+"
+1711582633543,"Batch processado | [243/287]
+"
+1711582636026,"Batch processado | [244/287]
+"
+1711582638413,"Batch processado | [245/287]
+"
+1711582640766,"Batch processado | [246/287]
+"
+1711582643103,"Batch processado | [247/287]
+"
+1711582645458,"Batch processado | [248/287]
+"
+1711582647835,"Batch processado | [249/287]
+"
+1711582650254,"Batch processado | [250/287]
+"
+1711582652575,"Batch processado | [251/287]
+"
+1711582654893,"Batch processado | [252/287]
+"
+1711582657280,"Batch processado | [253/287]
+"
+1711582659676,"Batch processado | [254/287]
+"
+1711582662129,"Batch processado | [255/287]
+"
+1711582664483,"Batch processado | [256/287]
+"
+1711582666851,"Batch processado | [257/287]
+"
+1711582669274,"Batch processado | [258/287]
+"
+1711582671629,"Batch processado | [259/287]
+"
+1711582674007,"Batch processado | [260/287]
+"
+1711582676542,"Batch processado | [261/287]
+"
+1711582678933,"Batch processado | [262/287]
+"
+1711582681287,"Batch processado | [263/287]
+"
+1711582683681,"Batch processado | [264/287]
+"
+1711582686093,"Batch processado | [265/287]
+"
+1711582688550,"Batch processado | [266/287]
+"
+1711582691001,"Batch processado | [267/287]
+"
+1711582693354,"Batch processado | [268/287]
+"
+1711582695745,"Batch processado | [269/287]
+"
+1711582698044,"Batch processado | [270/287]
+"
+1711582700393,"Batch processado | [271/287]
+"
+1711582702734,"Batch processado | [272/287]
+"
+1711582705051,"Batch processado | [273/287]
+"
+1711582707385,"Batch processado | [274/287]
+"
+1711582709678,"Batch processado | [275/287]
+"
+1711582712015,"Batch processado | [276/287]
+"
+1711582714401,"Batch processado | [277/287]
+"
+1711582716816,"Batch processado | [278/287]
+"
+1711582719274,"Batch processado | [279/287]
+"
+1711582721596,"Batch processado | [280/287]
+"
+1711582724013,"Batch processado | [281/287]
+"
+1711582726352,"Batch processado | [282/287]
+"
+1711582728698,"Batch processado | [283/287]
+"
+1711582731064,"Batch processado | [284/287]
+"
+1711582733447,"Batch processado | [285/287]
+"
+1711582735723,"Batch processado | [286/287]
+"
+1711582735873,"Batch processado | [287/287]
+"
+1711582735873,"Taxa de sucesso: 90.02%
+"
+1711582736029,"/opt/python/lib/python3.12/site-packages/numpy/core/fromnumeric.py:59: FutureWarning: 'DataFrame.swapaxes' is deprecated and will be removed in a future version. Please use 'DataFrame.transpose' instead.
+"
+1711582736029,"return bound(*args, **kwds)
+"
+1711582743911,"Detalhes dos filmes salvos em s3://jvitor-desafio/Raw/TMDB/JSON/2024/03/27
+"
+1711582743939,"END RequestId: be5cf8c6-9dfc-4ef5-ad16-8959e035c908
+"
+1711582743939,"REPORT RequestId: be5cf8c6-9dfc-4ef5-ad16-8959e035c908	Duration: 727606.87 ms	Billed Duration: 727607 ms	Memory Size: 2048 MB	Max Memory Used: 1167 MB	Init Duration: 3654.08 ms	
+"
