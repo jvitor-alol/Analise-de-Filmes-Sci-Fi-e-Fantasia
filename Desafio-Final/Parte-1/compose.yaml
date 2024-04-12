@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  batch_ingest:
+    build:
+      context: .
+    volumes:
+      - ~/Development/Data-Analytics-Scholarship-Program/Desafio-Final/data:/app/data
+      - ~/.aws:/root/.aws
+      - ./logs:/app/logs
+    stdin_open: true
+    tty: true
+    environment:
+      TZ: America/Sao_Paulo # Definindo TimeZone para os logs

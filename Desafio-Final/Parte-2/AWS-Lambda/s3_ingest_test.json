@@ -1,0 +1,39 @@
+{
+    "Records": [
+        {
+            "eventVersion": "2.1",
+            "eventSource": "aws:s3",
+            "awsRegion": "us-east-1",
+            "eventTime": "2024-03-20T10:00:00.000Z",
+            "eventName": "ObjectCreated:Put",
+            "userIdentity": {
+                "principalId": "AWS:EXAMPLE"
+            },
+            "requestParameters": {
+                "sourceIPAddress": "192.168.1.1"
+            },
+            "responseElements": {
+                "x-amz-request-id": "EXAMPLE123456789",
+                "x-amz-id-2": "EXAMPLEABCDEF123456789"
+            },
+            "s3": {
+                "s3SchemaVersion": "1.0",
+                "configurationId": "testConfigRule",
+                "bucket": {
+                    "name": "jvitor-desafio",
+                    "ownerIdentity": {
+                        "principalId": "EXAMPLE"
+                    },
+                    "arn": "arn:aws:s3:::my-s3-bucket"
+                },
+                "object": {
+                    "key": "Raw/Local/CSV/Movies/2024/03/20/movies.csv",
+                    "size": 1024,
+                    "eTag": "0123456789abcdef0123456789abcdef",
+                    "versionId": "1",
+                    "sequencer": "0A1B2C3D4E5F678901"
+                }
+            }
+        }
+    ]
+}
