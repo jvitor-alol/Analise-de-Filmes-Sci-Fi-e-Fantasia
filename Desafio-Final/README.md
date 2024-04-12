@@ -4,6 +4,16 @@
 
 ![Diagrama](./screenshots/desafio_final_diagrama.png)
 
+Etapas do projeto:
+
+> [Parte 1](./Parte-1/)
+
+> [Parte 2](./Parte-2/)
+
+> [Parte 3](./Parte-3/)
+
+> [Parte 4]
+
 ## 2. Carregamento de Dados em CSV para o Amazon S3
 
 Na primeira etapa do desafio foi elaborado um [script em Python](./Parte-1/main.py) (containerizado com [Docker](https://docs.docker.com/get-started/overview/)), com o objetivo de carregar dados históricos oriundos da base de dados do IMDB em um **Bucket** no [AWS S3](https://aws.amazon.com/pt/s3/).
@@ -156,7 +166,7 @@ Por fim, um gatilho foi configurado para a função, que é acionado sempre que 
 
 ## 4. Tratamento de Dados
 
-A próxima fase do projeto foi a limpeza e preparação dos dados das duas fontes (CSV do IMDB e API do TMDB) extraídos até aqui de forma bruta e armazenados na camada Raw.
+A próxima fase do projeto foi a limpeza e preparação dos dados das duas fontes (CSV do IMDB e API do TMDB) extraídos até aqui de forma bruta e armazenados na camada Raw. O framework [PySpark](https://spark.apache.org/docs/latest/api/python/index.html) desempenhou um papel crucial nessa etapa, com sua capacidade de processamento distribuído e sua vasta gama de funcionalidades para lidar eficientemente com grandes volumes de dados.
 
 A princípio foi feita a utilização local de [Jupyter Notebooks](https://jupyter.org/) para facilitar na visualização do tratamento dos dados, com a criação de jobs no [AWS Glue](https://docs.aws.amazon.com/pt_br/glue/latest/dg/what-is-glue.html) posteriormente para modificar e salvar os dados transformados nas camadas do S3.
 
