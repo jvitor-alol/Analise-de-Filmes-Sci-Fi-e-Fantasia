@@ -14,12 +14,10 @@ docker compose -p desafio_upload_s3 down
 
 ## Informações gerais
 
-Dentro de `requirements.txt` se encontram as libs que eu acreditei que seria interessante instalar junto à imagem do container. Entre elas:
+Dentro de `requirements.txt` se encontram as libs necessárias para o funcionamento do programa:
 
-- Pandas
-- Numpy
-- awscli
-- boto3
+- `awscli`
+- `boto3`
 
 O container monta no volume `/root/.aws/` a pasta onde ficam as credenciais de acesso ao AWS CLI da máquina host e a conexão com a AWS se dá com o `awscli` instalado pelo `pip`. Normalmente essa pasta se encontra em `$HOME/.aws` em sistemas Linux, mas esse caminho pode ser customizado no `compose.yaml`
 
