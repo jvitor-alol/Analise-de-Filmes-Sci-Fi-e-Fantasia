@@ -12,7 +12,7 @@ Etapas do projeto:
 
 > [Parte 3](./Parte-3/)
 
-> [Parte 4]
+> [Parte 4](./Parte-4/)
 
 ## 2. Carregamento de Dados em CSV para o Amazon S3
 
