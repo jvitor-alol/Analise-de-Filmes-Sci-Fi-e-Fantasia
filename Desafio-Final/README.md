@@ -236,3 +236,9 @@ Assim, com o objetivo de verificar se as tabelas foram criadas com sucesso no da
 
 ![Athena 1](screenshots/parte3_athena_teste_1.png)
 ![Athena 2](screenshots/parte3_athena_teste_2.png)
+
+## 5. Dashboard e Análise dos Dados
+
+https://community.amazonquicksight.com/t/regression-line-for-a-scatter-plot/4234
+
+https://docs.aws.amazon.com/quicksight/latest/user/scatter-plot.html
