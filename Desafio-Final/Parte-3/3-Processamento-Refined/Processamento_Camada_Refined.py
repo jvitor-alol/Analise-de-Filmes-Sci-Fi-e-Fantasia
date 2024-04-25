@@ -3,6 +3,7 @@ from awsglue.transforms import *
 from awsglue.utils import getResolvedOptions
 from pyspark.context import SparkContext
 from pyspark.sql import functions as F
+from pyspark.sql import Window
 from awsglue.context import GlueContext
 from awsglue.job import Job
 
@@ -48,11 +49,14 @@ print(spark.sql('SELECT DISTINCT id FROM db_geral').count())  # 1316
 
 # Criando e salvando tabela de artistas
 df_actors = df_imdb.groupBy('nomeArtista').count()
-df_actors = df_actors.withColumn('id', F.monotonically_increasing_id() + 1)
-df_actors = df_actors.withColumnRenamed('nomeArtista', 'name')
-df_actors = df_actors.withColumnRenamed('count', 'num_movies')
+df_actors = df_actors.withColumnRenamed('nomeArtista', 'name') \
+    .withColumnRenamed('count', 'num_movies')
 
-df_actors = df_actors.select('id', *df_actors.columns[:-1])
+# Add coluna de id
+df_actors = df_actors.select(
+    F.row_number().over(Window.orderBy(F.lit(1))).alias('id'),
+    *df_actors.columns)
+
 df_actors.printSchema()
 df_actors.describe().show()
 df_actors.show(5)
@@ -62,17 +66,20 @@ df_actors.write.mode('overwrite').parquet(output_path + 'dim_actor')
 # Criando e salvando tabela de datas
 df_dates = df_tmdb.select(df_tmdb.release_date.alias('date')) \
     .distinct().orderBy('release_date')
-df_dates = df_dates.withColumn('year', F.year('date'))
-df_dates = df_dates.withColumn('month', F.month('date'))
-df_dates = df_dates.withColumn('day', F.dayofmonth('date'))
-df_dates = df_dates.withColumn('quarter',
-                               F.when(F.month('date').isin([1, 2, 3]), 'Q1')
-                               .when(F.month('date').isin([4, 5, 6]), 'Q2')
-                               .when(F.month('date').isin([7, 8, 9]), 'Q3')
-                               .otherwise('Q4'))
-df_dates = df_dates.withColumn('id', F.monotonically_increasing_id() + 1)
+df_dates = df_dates.withColumn('year', F.year('date')) \
+    .withColumn('month', F.month('date')) \
+    .withColumn('day', F.dayofmonth('date')) \
+    .withColumn('quarter',
+                F.when(F.month('date').isin([1, 2, 3]), 'Q1')
+                .when(F.month('date').isin([4, 5, 6]), 'Q2')
+                .when(F.month('date').isin([7, 8, 9]), 'Q3')
+                .otherwise('Q4'))
 
-df_dates = df_dates.select('id', *df_dates.columns[:-1])
+# Add coluna de id
+df_dates = df_dates.select(
+    F.row_number().over(Window.orderBy(F.lit(1))).alias('id'),
+    *df_dates.columns)
+
 df_dates.printSchema()
 df_dates.describe().show()
 df_dates.show(5)
@@ -116,17 +123,21 @@ df_fato = spark.sql("""
 """)
 
 # Add chaves estrangeiras
-df_fato = df_fato.join(df_dates.select('id', 'date'),
+df_fato = df_fato.join(df_dates,
                        df_fato.release_date == df_dates.date, 'inner')
 df_fato = df_fato.withColumnRenamed('id', 'id_date')
-df_fato = df_fato.drop('release_date', 'date')
-
-df_fato = df_fato.join(df_actors.select('id', 'name'),
+df_fato = df_fato.join(df_actors,
                        df_fato.nomeArtista == df_actors.name, 'inner')
 df_fato = df_fato.withColumnRenamed('id', 'id_actor')
-df_fato = df_fato.drop('nomeArtista', 'name')
 
-# Reordenando as colunas da fato
+# Eliminando as colunas indesejadas sem alterar os dados de IDs estrangeiros
+colunas_indesejadas = ['release_date', 'date', 'year', 'month', 'day',
+                       'quarter', 'nomeArtista', 'name', 'num_movies']
+df_pandas = df_fato.toPandas()  # DataFrame Pandas é imutável
+df_pandas = df_pandas.drop(colunas_indesejadas, axis=1)
+df_fato = spark.createDataFrame(df_pandas)
+
+# Reordenando as colunas
 df_fato = df_fato.select(
     *df_fato.columns[:2], *df_fato.columns[-2:], *df_fato.columns[2:-2])
 
@@ -140,12 +151,12 @@ df_fato.write.partitionBy('id_movie').mode('overwrite') \
 # Criando e salvando tabela de gêneros
 df_genres = df_fato.select('id_movie', 'id_genre').distinct() \
     .groupBy('id_genre').count()
-df_genres = df_genres.withColumnRenamed('id_genre', 'id')
-df_genres = df_genres.withColumnRenamed('count', 'num_movies')
-df_genres = df_genres.withColumn('genre',
-                                 F.when(F.col('id') == 1, 'Fantasy')
-                                 .when(F.col('id') == 2, 'Sci-Fi')
-                                 .when(F.col('id') == 3, 'Fantasy/Sci-Fi'))
+df_genres = df_genres.withColumnRenamed('id_genre', 'id') \
+    .withColumnRenamed('count', 'num_movies')\
+    .withColumn('genre',
+                F.when(F.col('id') == 1, 'Fantasy')
+                .when(F.col('id') == 2, 'Sci-Fi')
+                .when(F.col('id') == 3, 'Fantasy/Sci-Fi'))
 
 df_genres = df_genres.select('id', 'genre', 'num_movies').orderBy('id')
 df_genres.printSchema()

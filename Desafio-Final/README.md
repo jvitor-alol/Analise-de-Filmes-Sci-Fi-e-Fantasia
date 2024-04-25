@@ -12,7 +12,7 @@ Etapas do projeto:
 
 > [Parte 3](./Parte-3/)
 
-> [Parte 4]
+> [Parte 4](./Parte-4/)
 
 ## 2. Carregamento de Dados em CSV para o Amazon S3
 
@@ -33,7 +33,7 @@ Os dados são salvos na camada Raw do **Bucket**, dentro de pastas contendo a da
 
 ## 3. Ingestão de Dados da API do TMDB
 
-A segunda fase do projeto foi a ingestão de mais dados brutos, utilizando a **API** do [The Movie Database](https://developer.themoviedb.org/docs/getting-started) com o objetivo de complementar os dados carregados anteriormente.
+A segunda fase do projeto foi a ingestão de mais dados brutos através da **API** do [The Movie Database](https://developer.themoviedb.org/docs/getting-started), com o objetivo de complementar os dados carregados anteriormente.
 
 ### 3.1 Insights Esperados
 
@@ -155,7 +155,7 @@ Também foi necessário criar uma _layer_ com as dependências utilizadas no scr
 
 ![Layer](screenshots/parte2_layer_lambda.png)
 
-Por fim, um gatilho foi configurado para a função, que é acionado sempre que um novo objeto é criado em `s3://jvitor-desafio/Raw/Local/CSV/Movies/`, e o script foi modificado para receber o caminho do CSV que é lido (`movies.csv`) como um dos parâmetros do evento.
+Por fim, um gatilho que é acionado quando um novo objeto é criado em `s3://jvitor-desafio/Raw/Local/CSV/Movies/` foi configurado. O script foi modificado para receber o caminho do CSV que é lido (`movies.csv`) como um dos parâmetros do evento.
 
 ![Trigger](screenshots/parte2_s3_trigger.png)
 ![Test JSON](screenshots/parte2_event_json.png)
@@ -176,24 +176,24 @@ O tratamento para a camada Trusted consistiu na eliminação de registros com da
 
 Para os dados oriundos da API foram feitas as modificações a seguir:
 
-1. Drop da coluna de gêneros (Será utilizada a classificação de gêneros de acordo com os dados históricos do IMDB, uma vez que as duas bases usam critérios diferentes para classificar cada filme).
-2. Cast na coluna `release_date` para o tipo `date`.
+1. _Drop_ da coluna de gêneros (Será utilizada a classificação de gêneros de acordo com os dados históricos do IMDB, uma vez que as duas bases usam critérios diferentes para classificar cada filme).
+2. _Cast_ na coluna `release_date` para o tipo `date`.
 3. Filmes com receita, orçamento ou duração zerados são considerados como valores nulos e seus registros foram eliminados da análise (dados irrelevantes e/ou incorretos).
 4. Filmes com menos de 30 votos foram considerados irrelevantes (espaço amostral insuficiente -> convenção do [Teorema Central do Limite](https://blog.proffernandamaciel.com.br/teorema_central_limite/)).
 5. Adição de uma coluna com a data da extração dos dados da API (metadado).
-6. Dados foram salvos no formato Parquet e particionados por sua data de extração.
+6. Dados foram salvos no formato **Parquet** e particionados por sua data de extração.
 
 ![Trusted TMDB](screenshots/parte3_trusted_tmdb.jpg)
 ![Trusted TMDB S3 Select](screenshots/parte3_trusted_select_tmdb.png)
 
 Já os dados históricos do CSV tiveram as seguintes mudanças:
 
-1. Drop de colunas indesejadas: `['generoArtista', 'anoNascimento', 'anoFalecimento', 'profissao', 'titulosMaisConhecidos']`.
+1. _Drop_ de colunas indesejadas: `['generoArtista', 'anoNascimento', 'anoFalecimento', 'profissao', 'titulosMaisConhecidos']`.
 2. Filtragem apenas dos filmes de Sci-Fi e Fantasia.
 3. Registros duplicados e dados incompletos eliminados.
 4. Substituição de valores `'\N'` na coluna `'personagem'` por valores nulos.
 5. Aqui também foram desconsiderados filmes irrelevantes com menos de 30 votos (TCL).
-6. Dados salvos em Parquet na camada Trusted.
+6. Dados salvos em **Parquet** na camada Trusted.
 
 ![Trusted CSV](screenshots/parte3_trusted_csv.png)
 ![Trusted CSV S3 Select](screenshots/parte3_trusted_select_csv.png)
@@ -204,12 +204,15 @@ Em seguida foi definido o modelo dimensional para representar os dados de filmes
 
 [Diferente](https://aws.amazon.com/pt/compare/the-difference-between-olap-and-oltp/) de um modelo relacional para bancos de dados transacionais **OLTP** (onde se preza pela normalização dos dados), a modelagem dimensional visa proporcionar uma experiência analítica eficiente e mais intuitiva.
 
-O modelo criado portanto é o seguinte:
+O modelo concebido para este projeto foi elaborado com o propósito de simplificar a extração de recortes específicos por dimensão nos dados, possibilitando análises temporais (por datas de lançamento), avaliações de gênero, entre outras análises relevantes.
 
 ![Modelo Dimensional](Parte-3/2-Modelagem-Refined/dim_model_refined.png)
 
-- Criação de uma tabela fato para registrar os relacionamentos entre atores e filmes.
-- Implementação de dimensões para detalhes dos filmes (título, ano, gênero), datas de lançamento, gêneros específicos (sci-fi, fantasia) e atores.
+- Uma tabela fato `fact_movie_actor` registra os relacionamentos entre atores e filmes e faz a conexão entre as diferentes dimensões.
+- A tabela `dim_movie` registra informações descritivas sobre cada filme distinto como: títulos, gêneros e data de lançamento.
+- A tabela `dim_actor` armazena o nome de cada artista e o número de filmes que este(a) participou.
+- Já a tabela `dim_date` contém registros das diferentes datas de lançamentos de filmes, como: ano, mês, dia e trimestre.
+- Por fim, temos a tabela `dim_genre` que armazenaria os gêneros principais de cada filme aqui analisado, no caso _Sci-Fi_, _Fantasy_ ou _Sci-Fi/Fantasy_ (para filmes que se encaixam nas duas categorias), assim como a quantidade de filmes que se enquadra em cada um dos 3 gêneros.
 
 ### 4.3 Processamento da Camada Refined
 
@@ -224,7 +227,7 @@ Aqui também foi feita a utilização do AWS Glue para fazer as modificações n
 ![Date](screenshots/parte3_select_date.png)
 ![Genre](screenshots/parte3_select_genre.png)
 
-Com os dados salvos no S3 em formato Parquet, foi criado um crawler para identificar e catalogá-los em um banco de dados no [AWS Lake Formation](https://aws.amazon.com/pt/lake-formation/), possibilitando consultas e a análise dos dados através de serviços como [Athena](https://aws.amazon.com/pt/athena/) para consultas SQL e [QuickSight](https://aws.amazon.com/pt/quicksight/) para visualizações e dashboards interativos.
+Com os dados salvos no S3 em formato Parquet, foi criado um crawler para identificar e catalogar as tabelas no banco de dados do [AWS Lake Formation](https://aws.amazon.com/pt/lake-formation/), possibilitando consultas e a análise dos dados através de serviços como [Athena](https://aws.amazon.com/pt/athena/) para consultas SQL e [QuickSight](https://aws.amazon.com/pt/quicksight/) para visualizações e dashboards interativos.
 
 ![Crawler](screenshots/parte3_crawler.png)
 ![Tables](screenshots/parte3_glue_tables.png)
@@ -233,3 +236,9 @@ Assim, com o objetivo de verificar se as tabelas foram criadas com sucesso no da
 
 ![Athena 1](screenshots/parte3_athena_teste_1.png)
 ![Athena 2](screenshots/parte3_athena_teste_2.png)
+
+## 5. Dashboard e Análise dos Dados
+
+https://community.amazonquicksight.com/t/regression-line-for-a-scatter-plot/4234
+
+https://docs.aws.amazon.com/quicksight/latest/user/scatter-plot.html
