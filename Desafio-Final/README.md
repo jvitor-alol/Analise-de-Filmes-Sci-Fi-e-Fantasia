@@ -1,18 +1,29 @@
 # ETL e Análise Histórica de Filmes de Sci-Fi e Fantasia
 
-## 1. Visão Geral do Projeto
+## 1. [Visão Geral do Projeto](https://www.youtube.com/watch?v=U8G73gXHvqo)
 
 ![Diagrama](./screenshots/desafio_final_diagrama.png)
 
-Etapas do projeto:
+> [Parte 1 - Carregamento de Dados para o S3 via CLI](./Parte-1/)
 
-> [Parte 1](./Parte-1/)
+1. Desenvolvimento de um script em **Python**, containerizado com **Docker**, para carregar arquivos CSV contendo dados históricos de filmes e séries para um bucket no Amazon S3.
 
-> [Parte 2](./Parte-2/)
+> [Parte 2 - Ingestão de Dados de uma API](./Parte-2/)
 
-> [Parte 3](./Parte-3/)
+1. Desenvolvimento de um programa para a ingestão de dados da **API** do **TMDB** (The Movie Database) com o objetivo de enriquecer os dados históricos.
+1. Execução do código no **AWS Lambda** e armazenamento dos dados em JSON no S3.
 
-> [Parte 4](./Parte-4/)
+> [Parte 3 - Tratamento e Modelagem dos Dados](./Parte-3/)
+
+1. Limpeza, padronização e armazenamento dos dados brutos na camada **Trusted** utilizando o **AWS Glue** com **PySpark**.
+1. Modelagem dimensional dos dados no [esquema estrela](https://learn.microsoft.com/pt-br/power-bi/guidance/star-schema) para otimizar consultas analíticas.
+1. Carregamento dos dados na **Trusted** para a camada **Refined** de acordo com o modelo dimensional.
+1. Execução de um crawler para catalogar os dados no **AWS Lake Formation**.
+
+> [Parte 4 - Análise dos Dados](./Parte-4/)
+
+1. Criação de uma **dashboard** utilizando o QuickSight.
+1. Análise descritiva dos dados e extração de _insights_.
 
 ## 2. Carregamento de Dados em CSV para o Amazon S3
 
@@ -239,6 +250,113 @@ Assim, com o objetivo de verificar se as tabelas foram criadas com sucesso no da
 
 ## 5. Dashboard e Análise dos Dados
 
-https://community.amazonquicksight.com/t/regression-line-for-a-scatter-plot/4234
+A última etapa do projeto consistiu na criação de um dashboard interativo com o **Amazon QuickSight** para realizar a análise exploratória dos dados.
 
-https://docs.aws.amazon.com/quicksight/latest/user/scatter-plot.html
+A [paleta de cores](https://coolors.co/2e3c5f-8789c0-99e1d9-f0f7f4) foi inspirada em filmes de fantasia e ficção científica, composta por tons de azul e roxo, realçados por toques de verde-água e uma cor mais clara para melhorar a legibilidade dos gráficos.
+
+- Delft blue - #2E3C5F
+- Cool grey - #8789C0
+- Tiffany blue - #99E1D9
+- Mint cream - #F0F7F4
+
+![Paleta de cores](./Parte-4/Dashboard-Paleta.png)
+
+O resultado foi o [seguinte](./Parte-4/Dashboard.pdf):
+
+![Dashboard](./Parte-4/Dashboard-print.jpg)
+
+### 5.1 Tendência de Lançamentos de Filmes Sci-Fi ao Longo dos Anos
+
+![Gráfico 1](./screenshots/parte4_dashboard_1.png)
+
+Neste gráfico, é apresentada uma análise detalhada da tendência dos lançamentos de filmes ao longo do tempo. Não apenas a quantidade total de lançamentos é observada, mas também são destacados alguns dos filmes mais influentes em diferentes décadas.
+
+Iniciando com "[Metropolis](https://www.youtube.com/watch?v=pU0k9YzNMwM)" em 1927, um marco na história do cinema, foram introduzidos temas de ficção científica que influenciaram gerações de cineastas. Em 1968, "[Planeta dos Macacos](https://www.youtube.com/watch?v=BRuQI4SY_FY)" capturou a imaginação do público com sua abordagem inovadora e comentários sociais perspicazes. Além disso, o épico de ficção científica "[2001: Uma Odisseia no Espaço](https://www.youtube.com/watch?v=KEEnap_h8cs)", dirigido por Stanley Kubrick também lançado em 1968, deixou sua marca na história do cinema, desafiando as fronteiras da narrativa cinematográfica e estabelecendo novos padrões visuais e temáticos para o gênero.
+
+No entanto, foi o lançamento do primeiro "[Star Wars](https://www.youtube.com/watch?v=RYoE2gvh1Vs)" em 1977 que marcou o início de uma nova era para o gênero Sci-Fi. Não apenas padrões para efeitos especiais e narrativa foram definidos por este filme, mas também um fenômeno cultural foi desencadeado, moldando a indústria cinematográfica nas décadas seguintes.
+
+A década de 80 foi especialmente prolífica, com uma série de lançamentos que se tornaram clássicos instantâneos, como "**Blade Runner**", "**E.T. - O Extraterrestre**", "**De Volta para o Futuro**" e "**O Exterminador do Futuro**". Não apenas sucesso de bilheteria, esses filmes influenciaram a cultura popular e continuam a ser referências importantes até hoje.
+
+![Gráfico 2](./screenshots/parte4_dashboard_2.png)
+
+Além disso, o gráfico revela a natureza experimental e de nicho do gênero Sci-Fi antes de 1977. A medida de popularidade do gênero é muito influenciada pelos lançamentos esporádicos de filmes, como se mostra pelo comportamento instável da linha de popularidade durante aquele período.
+
+No entanto, com o aumento constante no número de filmes lançados anualmente a partir dos anos 80, se vê também a elevação da relevância cultural do gênero. Essa transformação na percepção e aceitação do público em relação à ficção científica contribui para a variação positiva na linha de popularidade ao longo do tempo.
+
+### 5.2 Orçamentos e Bilheterias da Indústria do Cinema (1980 - 2022)
+
+![Gráfico 3](./screenshots/parte4_dashboard_3.png)
+
+Este gráfico apresenta uma análise dos orçamentos e bilheterias da indústria cinematográfica nas últimas décadas.
+
+Observamos um aumento gradual nos investimentos em orçamentos de filmes ao longo do tempo. Isso pode ser atribuído ao crescimento da indústria cinematográfica como um todo, impulsionado por investimentos contínuos e avanços tecnológicos.
+
+A partir da década de 80, a indústria do cinema se tornou cada vez mais lucrativa, resultando em um crescimento acelerado no retorno sobre investimentos dos filmes. Esse crescimento é reflexo da crescente demanda por entretenimento e da popularização do cinema como uma forma de lazer.
+
+Um ponto importante a ser destacado é o ano de 2020, que apresentou uma queda abrupta nas bilheterias e nos orçamentos dos filmes. Essa queda foi provocada pela pandemia global de coronavírus, que levou ao fechamento de cinemas em todo o mundo e impactou significativamente diversos setores da indústria.
+
+Embora haja sinais de recuperação em 2021, com um aumento expressivo na bilheteria mundial devido à flexibilização das restrições sanitárias, o mercado ainda está se recuperando dos efeitos da pandemia. A incerteza continua a influenciar os investimentos e os resultados financeiros da indústria cinematográfica.
+
+Vale destacar também que, nos últimos 10 a 15 anos, observou-se um aumento na popularidade dos serviços de streaming, oferecendo uma alternativa conveniente para assistir filmes em casa. Ainda assim, embora tenham reduzido a frequência das idas ao cinema, aparentemente esses serviços não representaram um impacto significativo às bilheterias até a pandemia.
+
+### 5.3 Correlação: Orçamento vs. Bilheteria
+
+![Gráfico 4](./screenshots/parte4_dashboard_4.png)
+
+Este gráfico busca analisar a possível correlação entre o orçamento e a bilheteria dos filmes, explorando se filmes com maiores orçamentos tendem a ter maiores bilheterias.
+
+Embora não seja possível gerar uma linha de regressão para definir a correlação utilizando apenas o QuickSight (Fontes: [Fórum QuickSight](https://community.amazonquicksight.com/t/regression-line-for-a-scatter-plot/4234), [User Guide](https://docs.aws.amazon.com/quicksight/latest/user/scatter-plot.html)), uma análise mais profunda foi realizada utilizando um [Jupyter Notebook](./Parte-4/Jupyter-Graphs/linear_reg.ipynb).
+
+![Scatterplot 1](./Parte-4/Jupyter-Graphs/scatterplot_budget_revenue.png)
+
+O gráfico complementar revelou uma correlação positiva forte de 0,77 entre o orçamento e a bilheteria. Isso indica que há uma tendência de filmes com maiores orçamentos apresentarem maiores bilheterias.
+
+Essa correlação pode ser justificada pelo fato de que filmes com maiores orçamentos geralmente têm mais recursos disponíveis para investir em marketing, produção e distribuição, o que tende a atrair um público mais amplo e consequentemente aumentar a bilheteria.
+
+### 5.4 Notas Médias e Orçamento vs. Popularidade dos Filmes
+
+![Gráfico 5](./screenshots/parte4_dashboard_5.png)
+
+Neste gráfico, exploramos a relação entre as notas médias atribuídas pelo público aos filmes e a sua popularidade. O orçamento dos filmes é representado pelo tamanho dos círculos aqui.
+
+Visualmente, observa-se que os filmes com maiores orçamentos tendem a receber notas médias superiores a 6, e que filmes com avaliações mais altas também tendem a serem mais populares.
+
+![Scatterplot 2](./Parte-4/Jupyter-Graphs/scatterplot_rating_popularity.png)
+
+A análise realizada externamente revelou uma correlação positiva moderada de 0,32 entre essas duas variáveis. Embora essa correlação seja menos significativa em comparação com a relação entre orçamentos e bilheterias, ela sugere que a popularidade e a percepção de qualidade dos filmes por parte da audiência estão de fatos relacionadas.
+
+### 5.5 Análise Sazonal das Bilheterias por Gênero
+
+Examinando mais de perto o comportamento sazonal das bilheterias, podemos identificar os períodos do ano em que os filmes de sci-fi e fantasia costumam arrecadar mais.
+
+![Gráfico 6](./screenshots/parte4_dashboard_6.png)
+
+Entre abril e junho, muitas regiões do mundo estão passando pela transição para a primavera e o início do verão, caracterizados por clima mais ameno e dias mais longos. Esse clima favorável pode incentivar as pessoas a sair de casa em busca de entretenimento, como ir ao cinema. Além disso, as férias de primavera e feriados como o Dia das Mães e o Memorial Day nos Estados Unidos podem aumentar o tempo livre disponível para assistir a filmes. Observa-se que, para o gênero Sci-Fi, as maiores bilheterias ocorrem entre abril e junho, representando 46.86% do total.
+
+Por outro lado, para o gênero fantasia, embora registre aumentos significativos nas bilheterias durante o segundo trimestre do ano (27.58%), a maior parte dos lucros desse gênero concentra-se no último trimestre, entre os meses de outubro a dezembro, representando 42.2% do total.
+
+No final do ano, especialmente em novembro e dezembro, há uma série de feriados importantes, como o Dia de Ação de Graças (EUA), Natal e Ano Novo, em muitas partes do mundo. No final do ano, é comum haver muitos lançamentos de filmes natalinos repletos de elementos mágicos, aventuras e histórias emocionantes, muito atrativos para famílias durante as férias escolares. Portanto, os meses finais do ano podem ser momentos mais propícios para o lançamento de filmes de fantasia, aproveitando a disposição do público para buscar entretenimento em família durante os feriados.
+
+Vale ressaltar que a análise dessas datas, especialmente sob a perspectiva dos Estados Unidos, leva em consideração o fato de que as maiores produtoras e distribuidoras de filmes, a maioria delas sediadas em Hollywood, programam seus lançamentos para coincidir com esses períodos de maior procura, uma vez que esses feriados representam oportunidades estratégicas para atrair um público mais amplo dentro do próprio território.
+
+### 5.6 Análise dos Artistas Mais Recorrentes na Indústria
+
+Os dois últimos gráficos apresentam uma análise dos artistas mais recorrentes na indústria, considerando sua popularidade e a bilheteria acumulada dos filmes em que participam. No primeiro gráfico, observamos que os artistas mais populares são aqueles que frequentemente aparecem em franquias de blockbusters.
+
+![Gráfico 7](./screenshots/parte4_dashboard_7.png)
+
+Nomes como Robert Downey Jr., Chris Evans, Samuel L. Jackson e Scarlett Johansson, conhecidos por suas participações no universo cinematográfico da Marvel, são destacados. Além deles, Johnny Depp, famoso pela franquia Piratas do Caribe e pelos filmes de Animais Fantásticos, e artistas como Willem Dafoe, Keanu Reeves e Tilda Swinton também se destacam por sua popularidade.
+
+![Gráfico 8](./screenshots/parte4_dashboard_8.png)
+
+No segundo gráfico, ao observarmos as bilheterias acumuladas, notamos uma consistência nos artistas mais rentáveis. Robert Downey Jr. e Chris Evans lideram, seguidos por nomes como Emma Watson, Daniel Radcliffe e Rupert Grint, reconhecidos pela saga de filmes de Harry Potter. Esses gráficos evidenciam a influência significativa do elenco na popularidade e no sucesso financeiro dos filmes.
+
+Existe aparentemente um ciclo de retroalimentação, no qual artistas populares frequentemente são selecionados para papéis em filmes de alto orçamento, o que amplifica ainda mais sua popularidade e atrai um público mais amplo. O público, por sua vez, busca filmes que apresentam esses artistas, devido ao vínculo emocional que estabeleceram com seus papéis anteriores. Essa relação entre o elenco e o público demonstra a importância dos artistas na indústria cinematográfica e como suas performances impactam diretamente o desempenho dos filmes.
+
+## 6. Considerações Finais
+
+Em síntese, a análise dos dados revela padrões significativos na indústria cinematográfica. Desde o marco revolucionário representado pelo Star Wars original, que popularizou o gênero de ficção científica, até as flutuações sazonais nas bilheterias, cada ponto oferece uma perspectiva mais profunda sobre os impulsionadores de sucesso no cinema.
+
+Observa-se um crescimento consistente nas médias de bilheteria ao longo das décadas, apesar das perturbações causadas pela pandemia. Além disso, a correlação entre orçamento e bilheteria, aliada ao impacto dos artistas em franquias de sucesso, destaca a importância do investimento em produção e marketing, bem como o papel crucial do elenco na atração do público.
+
+Ao contextualizarmos esses dados dentro do cenário histórico e das tendências de mercado, conseguimos obter uma compreensão mais abrangente da evolução desse setor da indústria cinematográfica.
