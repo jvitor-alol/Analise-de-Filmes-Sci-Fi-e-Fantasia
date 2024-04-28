@@ -305,9 +305,9 @@ Vale destacar também que, nos últimos 10 a 15 anos, observou-se um aumento na 
 
 Este gráfico busca analisar a possível correlação entre o orçamento e a bilheteria dos filmes, explorando se filmes com maiores orçamentos tendem a ter maiores bilheterias.
 
-Embora não seja possível gerar uma linha de regressão para definir a correlação utilizando apenas o QuickSight (Fontes: [Fórum QuickSight](https://community.amazonquicksight.com/t/regression-line-for-a-scatter-plot/4234), [User Guide](https://docs.aws.amazon.com/quicksight/latest/user/scatter-plot.html)), uma análise mais profunda foi realizada utilizando um [Jupyter Notebook](./Parte-4/Jupyter-Graphs/linear_reg.ipynb).
+Embora não seja possível gerar uma linha de regressão para definir a correlação utilizando apenas o QuickSight (Fontes: [Fórum QuickSight](https://community.amazonquicksight.com/t/regression-line-for-a-scatter-plot/4234), [User Guide](https://docs.aws.amazon.com/quicksight/latest/user/scatter-plot.html)), uma análise mais profunda foi realizada utilizando um [Jupyter Notebook](./Parte-4/Jupyter/linear_reg.ipynb).
 
-![Scatterplot 1](./Parte-4/Jupyter-Graphs/scatterplot_budget_revenue.png)
+![Scatterplot 1](./Parte-4/Jupyter/scatterplot_budget_revenue.png)
 
 O gráfico complementar revelou uma correlação positiva forte de 0,77 entre o orçamento e a bilheteria. Isso indica que há uma tendência de filmes com maiores orçamentos apresentarem maiores bilheterias.
 
@@ -321,7 +321,7 @@ Neste gráfico, exploramos a relação entre as notas médias atribuídas pelo p
 
 Visualmente, observa-se que os filmes com maiores orçamentos tendem a receber notas médias superiores a 6, e que filmes com avaliações mais altas também tendem a serem mais populares.
 
-![Scatterplot 2](./Parte-4/Jupyter-Graphs/scatterplot_rating_popularity.png)
+![Scatterplot 2](./Parte-4/Jupyter/scatterplot_rating_popularity.png)
 
 A análise realizada externamente revelou uma correlação positiva moderada de 0,32 entre essas duas variáveis. Embora essa correlação seja menos significativa em comparação com a relação entre orçamentos e bilheterias, ela sugere que a popularidade e a percepção de qualidade dos filmes por parte da audiência estão de fatos relacionadas.
 
