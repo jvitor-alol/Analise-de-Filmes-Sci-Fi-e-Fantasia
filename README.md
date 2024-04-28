@@ -2,7 +2,7 @@
 
 ## 1. [Visão Geral do Projeto](https://www.youtube.com/watch?v=U8G73gXHvqo)
 
-![Diagrama](./screenshots/desafio_final_diagrama.png)
+![Diagrama](./assets/screenshots/desafio_final_diagrama.png)
 
 > [Parte 1 - Carregamento de Dados para o S3 via CLI](./Parte-1/)
 
@@ -35,12 +35,12 @@ O volume `/app/data` também deve ser montado como especificado no compose, e é
 
 Os logs de execução são salvos em `/app/logs` e são persistidos no host em uma pasta `logs` criada de forma automática onde o compose for executado.
 
-![Logs](screenshots/parte1_logs.png)
+![Logs](./assets/screenshots/parte1_logs.png)
 
 Os dados são salvos na camada Raw do **Bucket**, dentro de pastas contendo a data de upload dos arquivos, na forma `s3://<Bucket-name>/Raw/Local/CSV/Movies/YYYY/MM/DD/file-name.csv`.
 
-![Raw CSV 1](screenshots/parte1_raw_csv_movies.png)
-![Raw CSV 2](screenshots/parte1_raw_csv_series.png)
+![Raw CSV 1](./assets/screenshots/parte1_raw_csv_movies.png)
+![Raw CSV 2](./assets/screenshots/parte1_raw_csv_series.png)
 
 ## 3. Ingestão de Dados da API do TMDB
 
@@ -83,7 +83,7 @@ Nessa etapa foi traçada uma visão geral dos insights esperados ao final da ana
 
 O endpoint consultado foi o [movie-details](https://developer.themoviedb.org/reference/movie-details) `/movie/{movie_id}`, que extrai detalhes gerais sobre um filme de acordo com o ID requisitado.
 
-Os IDs selecionados foram extraídos da base de dados [`movies.csv`](../Desafio-Final/data/Filmes+e+Series.zip) carregada anteriormente no S3. Foi feita também uma pré filtragem nesses IDs a fim de fazer as consultas apenas dos que continham os gêneros Sci-Fi ou Fantasia de acordo com o IMDB.
+Os IDs selecionados foram extraídos da base de dados [`movies.csv`](./assets/data/Filmes+e+Series.zip) carregada anteriormente no S3. Foi feita também uma pré filtragem nesses IDs a fim de fazer as consultas apenas dos que continham os gêneros Sci-Fi ou Fantasia de acordo com o IMDB.
 
 Dessa forma, foi possível fazer as requisições em apenas 14.303 dos 244.544 IDs distintos presentes no CSV original, diminuindo consideravelmente o tempo de execução com dados que não teriam utilidade.
 
@@ -121,7 +121,7 @@ tmdb_details.append(registro_filtrado)
 
 Após o processamento das requisições à **API**, foram recuperados os dados de 12.875 filmes. Dos 14.303 IDs originais, 1.428 não foram encontrados na base de dados do TMDB. Assim, os IDs dos quais não foi possível extrair informações foram salvos em um arquivo `errors.csv`, enquanto que os detalhes extraídos com sucesso foram armazenados no S3, com uma cópia local de backup.
 
-![Log local](screenshots/parte2_log_local.png)
+![Log local](./assets/screenshots/parte2_log_local.png)
 
 Os detalhes dos filmes foram salvos no formato JSON com a seguinte estrutura:
 
@@ -160,20 +160,20 @@ Após realizar diversos [testes locais](./Parte-2/Local-Testing/) de extração 
 
 A chave da API foi salva como uma variável de ambiente do Lambda e encriptada em repouso utilizando o [AWS KMS](https://aws.amazon.com/pt/kms/), só sendo desencriptada durante tempo de execução do script para poder fazer as chamadas à API.
 
-![API KEY](screenshots/parte2_api_key_kms.png)
+![API KEY](./assets/screenshots/parte2_api_key_kms.png)
 
 Também foi necessário criar uma _layer_ com as dependências utilizadas no script para o Lambda (Pandas, NumPy, Requests).
 
-![Layer](screenshots/parte2_layer_lambda.png)
+![Layer](./assets/screenshots/parte2_layer_lambda.png)
 
 Por fim, um gatilho que é acionado quando um novo objeto é criado em `s3://jvitor-desafio/Raw/Local/CSV/Movies/` foi configurado. O script foi modificado para receber o caminho do CSV que é lido (`movies.csv`) como um dos parâmetros do evento.
 
-![Trigger](screenshots/parte2_s3_trigger.png)
-![Test JSON](screenshots/parte2_event_json.png)
-![Função Lambda](screenshots/parte2_lambda_function.png)
-![Execution Results](screenshots/parte2_execution_results.png)
-![S3](screenshots/parte2_dados_s3.png)
-![S3 Select](screenshots/parte2_s3_select.png)
+![Trigger](./assets/screenshots/parte2_s3_trigger.png)
+![Test JSON](./assets/screenshots/parte2_event_json.png)
+![Função Lambda](./assets/screenshots/parte2_lambda_function.png)
+![Execution Results](./assets/screenshots/parte2_execution_results.png)
+![S3](./assets/screenshots/parte2_dados_s3.png)
+![S3 Select](./assets/screenshots/parte2_s3_select.png)
 
 ## 4. Tratamento de Dados
 
@@ -194,8 +194,8 @@ Para os dados oriundos da API foram feitas as modificações a seguir:
 5. Adição de uma coluna com a data da extração dos dados da API (metadado).
 6. Dados foram salvos no formato **Parquet** e particionados por sua data de extração.
 
-![Trusted TMDB](screenshots/parte3_trusted_tmdb.jpg)
-![Trusted TMDB S3 Select](screenshots/parte3_trusted_select_tmdb.png)
+![Trusted TMDB](./assets/screenshots/parte3_trusted_tmdb.jpg)
+![Trusted TMDB S3 Select](./assets/screenshots/parte3_trusted_select_tmdb.png)
 
 Já os dados históricos do CSV tiveram as seguintes mudanças:
 
@@ -206,8 +206,8 @@ Já os dados históricos do CSV tiveram as seguintes mudanças:
 5. Aqui também foram desconsiderados filmes irrelevantes com menos de 30 votos (TCL).
 6. Dados salvos em **Parquet** na camada Trusted.
 
-![Trusted CSV](screenshots/parte3_trusted_csv.png)
-![Trusted CSV S3 Select](screenshots/parte3_trusted_select_csv.png)
+![Trusted CSV](./assets/screenshots/parte3_trusted_csv.png)
+![Trusted CSV S3 Select](./assets/screenshots/parte3_trusted_select_csv.png)
 
 ### 4.2 Modelagem Dimensional
 
@@ -217,7 +217,7 @@ Em seguida foi definido o modelo dimensional para representar os dados de filmes
 
 O modelo concebido para este projeto foi elaborado com o propósito de simplificar a extração de recortes específicos por dimensão nos dados, possibilitando análises temporais (por datas de lançamento), avaliações de gênero, entre outras análises relevantes.
 
-![Modelo Dimensional](Parte-3/2-Modelagem-Refined/dim_model_refined.png)
+![Modelo Dimensional](./Parte-3/2-Modelagem-Refined/dim_model_refined.png)
 
 - Uma tabela fato `fact_movie_actor` registra os relacionamentos entre atores e filmes e faz a conexão entre as diferentes dimensões.
 - A tabela `dim_movie` registra informações descritivas sobre cada filme distinto como: títulos, gêneros e data de lançamento.
@@ -231,22 +231,22 @@ Na ultima etapa de tratamento dos dados foi feita a movimentação dos dados na 
 
 Aqui também foi feita a utilização do AWS Glue para fazer as modificações necessárias. Os dados foram salvos na camada Refined do Bucket S3, com cada diretório mantendo os conteúdos de uma das cinco tabelas criadas.
 
-![Camada Refined](screenshots/parte3_camada_refined.png)
-![Fact](screenshots/parte3_select_fact.png)
-![Movie](screenshots/parte3_select_movie.png)
-![Actor](screenshots/parte3_select_actor.png)
-![Date](screenshots/parte3_select_date.png)
-![Genre](screenshots/parte3_select_genre.png)
+![Camada Refined](./assets/screenshots/parte3_camada_refined.png)
+![Fact](./assets/screenshots/parte3_select_fact.png)
+![Movie](./assets/screenshots/parte3_select_movie.png)
+![Actor](./assets/screenshots/parte3_select_actor.png)
+![Date](./assets/screenshots/parte3_select_date.png)
+![Genre](./assets/screenshots/parte3_select_genre.png)
 
 Com os dados salvos no S3 em formato Parquet, foi criado um crawler para identificar e catalogar as tabelas no banco de dados do [AWS Lake Formation](https://aws.amazon.com/pt/lake-formation/), possibilitando consultas e a análise dos dados através de serviços como [Athena](https://aws.amazon.com/pt/athena/) para consultas SQL e [QuickSight](https://aws.amazon.com/pt/quicksight/) para visualizações e dashboards interativos.
 
-![Crawler](screenshots/parte3_crawler.png)
-![Tables](screenshots/parte3_glue_tables.png)
+![Crawler](./assets/screenshots/parte3_crawler.png)
+![Tables](./assets/screenshots/parte3_glue_tables.png)
 
 Assim, com o objetivo de verificar se as tabelas foram criadas com sucesso no data lake, algumas consultas foram realizadas no Athena.
 
-![Athena 1](screenshots/parte3_athena_teste_1.png)
-![Athena 2](screenshots/parte3_athena_teste_2.png)
+![Athena 1](./assets/screenshots/parte3_athena_teste_1.png)
+![Athena 2](./assets/screenshots/parte3_athena_teste_2.png)
 
 ## 5. Dashboard e Análise dos Dados
 
@@ -267,7 +267,7 @@ O resultado foi o [seguinte](./Parte-4/Dashboard.pdf):
 
 ### 5.1 Tendência de Lançamentos de Filmes Sci-Fi ao Longo dos Anos
 
-![Gráfico 1](./screenshots/parte4_dashboard_1.png)
+![Gráfico 1](./assets/screenshots/parte4_dashboard_1.png)
 
 Neste gráfico, é apresentada uma análise detalhada da tendência dos lançamentos de filmes ao longo do tempo. Não apenas a quantidade total de lançamentos é observada, mas também são destacados alguns dos filmes mais influentes em diferentes décadas.
 
@@ -277,7 +277,7 @@ No entanto, foi o lançamento do primeiro "[Star Wars](https://www.youtube.com/w
 
 A década de 80 foi especialmente prolífica, com uma série de lançamentos que se tornaram clássicos instantâneos, como "**Blade Runner**", "**E.T. - O Extraterrestre**", "**De Volta para o Futuro**" e "**O Exterminador do Futuro**". Não apenas sucesso de bilheteria, esses filmes influenciaram a cultura popular e continuam a ser referências importantes até hoje.
 
-![Gráfico 2](./screenshots/parte4_dashboard_2.png)
+![Gráfico 2](./assets/screenshots/parte4_dashboard_2.png)
 
 Além disso, o gráfico revela a natureza experimental e de nicho do gênero Sci-Fi antes de 1977. A medida de popularidade do gênero é muito influenciada pelos lançamentos esporádicos de filmes, como se mostra pelo comportamento instável da linha de popularidade durante aquele período.
 
@@ -285,7 +285,7 @@ No entanto, com o aumento constante no número de filmes lançados anualmente a 
 
 ### 5.2 Orçamentos e Bilheterias da Indústria do Cinema (1980 - 2022)
 
-![Gráfico 3](./screenshots/parte4_dashboard_3.png)
+![Gráfico 3](./assets/screenshots/parte4_dashboard_3.png)
 
 Este gráfico apresenta uma análise dos orçamentos e bilheterias da indústria cinematográfica nas últimas décadas.
 
@@ -301,7 +301,7 @@ Vale destacar também que, nos últimos 10 a 15 anos, observou-se um aumento na 
 
 ### 5.3 Correlação: Orçamento vs. Bilheteria
 
-![Gráfico 4](./screenshots/parte4_dashboard_4.png)
+![Gráfico 4](./assets/screenshots/parte4_dashboard_4.png)
 
 Este gráfico busca analisar a possível correlação entre o orçamento e a bilheteria dos filmes, explorando se filmes com maiores orçamentos tendem a ter maiores bilheterias.
 
@@ -315,7 +315,7 @@ Essa correlação pode ser justificada pelo fato de que filmes com maiores orça
 
 ### 5.4 Notas Médias e Orçamento vs. Popularidade dos Filmes
 
-![Gráfico 5](./screenshots/parte4_dashboard_5.png)
+![Gráfico 5](./assets/screenshots/parte4_dashboard_5.png)
 
 Neste gráfico, exploramos a relação entre as notas médias atribuídas pelo público aos filmes e a sua popularidade. O orçamento dos filmes é representado pelo tamanho dos círculos aqui.
 
@@ -329,7 +329,7 @@ A análise realizada externamente revelou uma correlação positiva moderada de 
 
 Examinando mais de perto o comportamento sazonal das bilheterias, podemos identificar os períodos do ano em que os filmes de sci-fi e fantasia costumam arrecadar mais.
 
-![Gráfico 6](./screenshots/parte4_dashboard_6.png)
+![Gráfico 6](./assets/screenshots/parte4_dashboard_6.png)
 
 Entre abril e junho, muitas regiões do mundo estão passando pela transição para a primavera e o início do verão, caracterizados por clima mais ameno e dias mais longos. Esse clima favorável pode incentivar as pessoas a sair de casa em busca de entretenimento, como ir ao cinema. Além disso, as férias de primavera e feriados como o Dia das Mães e o Memorial Day nos Estados Unidos podem aumentar o tempo livre disponível para assistir a filmes. Observa-se que, para o gênero Sci-Fi, as maiores bilheterias ocorrem entre abril e junho, representando 46.86% do total.
 
@@ -343,11 +343,11 @@ Vale ressaltar que a análise dessas datas, especialmente sob a perspectiva dos 
 
 Os dois últimos gráficos apresentam uma análise dos artistas mais recorrentes na indústria, considerando sua popularidade e a bilheteria acumulada dos filmes em que participam. No primeiro gráfico, observamos que os artistas mais populares são aqueles que frequentemente aparecem em franquias de blockbusters.
 
-![Gráfico 7](./screenshots/parte4_dashboard_7.png)
+![Gráfico 7](./assets/screenshots/parte4_dashboard_7.png)
 
 Nomes como Robert Downey Jr., Chris Evans, Samuel L. Jackson e Scarlett Johansson, conhecidos por suas participações no universo cinematográfico da Marvel, são destacados. Além deles, Johnny Depp, famoso pela franquia Piratas do Caribe e pelos filmes de Animais Fantásticos, e artistas como Willem Dafoe, Keanu Reeves e Tilda Swinton também se destacam por sua popularidade.
 
-![Gráfico 8](./screenshots/parte4_dashboard_8.png)
+![Gráfico 8](./assets/screenshots/parte4_dashboard_8.png)
 
 No segundo gráfico, ao observarmos as bilheterias acumuladas, notamos uma consistência nos artistas mais rentáveis. Robert Downey Jr. e Chris Evans lideram, seguidos por nomes como Emma Watson, Daniel Radcliffe e Rupert Grint, reconhecidos pela saga de filmes de Harry Potter. Esses gráficos evidenciam a influência significativa do elenco na popularidade e no sucesso financeiro dos filmes.
 
