@@ -1,6 +1,6 @@
-# ETL e Análise Histórica de Filmes de Sci-Fi e Fantasia
+# 🎬 ETL e Análise Histórica de Filmes de Sci-Fi e Fantasia
 
-## 1. [Visão Geral do Projeto](https://www.youtube.com/watch?v=U8G73gXHvqo)
+## 🛤️ 1. [Visão Geral do Projeto](https://www.youtube.com/watch?v=U8G73gXHvqo)
 
 ![Diagrama](./assets/screenshots/desafio_final_diagrama.png)
 
@@ -25,7 +25,7 @@
 1. Criação de uma **dashboard** utilizando o QuickSight.
 1. Análise descritiva dos dados e extração de _insights_.
 
-## 2. Carregamento de Dados em CSV para o Amazon S3
+## 🐋 2. Carregamento de Dados em CSV para o Amazon S3
 
 Na primeira etapa do desafio foi elaborado um [script em Python](./Parte-1/main.py) (containerizado com [Docker](https://docs.docker.com/get-started/overview/)), com o objetivo de carregar dados históricos oriundos da base de dados do IMDB em um **Bucket** no [AWS S3](https://aws.amazon.com/pt/s3/).
 
@@ -42,7 +42,7 @@ Os dados são salvos na camada Raw do **Bucket**, dentro de pastas contendo a da
 ![Raw CSV 1](./assets/screenshots/parte1_raw_csv_movies.png)
 ![Raw CSV 2](./assets/screenshots/parte1_raw_csv_series.png)
 
-## 3. Ingestão de Dados da API do TMDB
+## 🐍 3. Ingestão de Dados da API do TMDB
 
 A segunda fase do projeto foi a ingestão de mais dados brutos através da **API** do [The Movie Database](https://developer.themoviedb.org/docs/getting-started), com o objetivo de complementar os dados carregados anteriormente.
 
@@ -175,7 +175,7 @@ Por fim, um gatilho que é acionado quando um novo objeto é criado em `s3://jvi
 ![S3](./assets/screenshots/parte2_dados_s3.png)
 ![S3 Select](./assets/screenshots/parte2_s3_select.png)
 
-## 4. Tratamento de Dados
+## 🔎 4. Tratamento de Dados
 
 A próxima fase do projeto foi a limpeza e preparação dos dados das duas fontes (CSV do IMDB e API do TMDB) extraídos até aqui de forma bruta e armazenados na camada Raw. O framework [PySpark](https://spark.apache.org/docs/latest/api/python/index.html) desempenhou um papel crucial nessa etapa, com sua capacidade de processamento distribuído e sua vasta gama de funcionalidades para lidar eficientemente com grandes volumes de dados.
 
@@ -248,7 +248,7 @@ Assim, com o objetivo de verificar se as tabelas foram criadas com sucesso no da
 ![Athena 1](./assets/screenshots/parte3_athena_teste_1.png)
 ![Athena 2](./assets/screenshots/parte3_athena_teste_2.png)
 
-## 5. Dashboard e Análise dos Dados
+## 📈 5. Dashboard e Análise dos Dados
 
 A última etapa do projeto consistiu na criação de um dashboard interativo com o **Amazon QuickSight** para realizar a análise exploratória dos dados.
 
@@ -353,10 +353,27 @@ No segundo gráfico, ao observarmos as bilheterias acumuladas, notamos uma consi
 
 Existe aparentemente um ciclo de retroalimentação, no qual artistas populares frequentemente são selecionados para papéis em filmes de alto orçamento, o que amplifica ainda mais sua popularidade e atrai um público mais amplo. O público, por sua vez, busca filmes que apresentam esses artistas, devido ao vínculo emocional que estabeleceram com seus papéis anteriores. Essa relação entre o elenco e o público demonstra a importância dos artistas na indústria cinematográfica e como suas performances impactam diretamente o desempenho dos filmes.
 
-## 6. Considerações Finais
+## ⭐ 6. Considerações Finais
 
 Em síntese, a análise dos dados revela padrões significativos na indústria cinematográfica. Desde o marco revolucionário representado pelo Star Wars original, que popularizou o gênero de ficção científica, até as flutuações sazonais nas bilheterias, cada ponto oferece uma perspectiva mais profunda sobre os impulsionadores de sucesso no cinema.
 
 Observa-se um crescimento consistente nas médias de bilheteria ao longo das décadas, apesar das perturbações causadas pela pandemia. Além disso, a correlação entre orçamento e bilheteria, aliada ao impacto dos artistas em franquias de sucesso, destaca a importância do investimento em produção e marketing, bem como o papel crucial do elenco na atração do público.
 
 Ao contextualizarmos esses dados dentro do cenário histórico e das tendências de mercado, conseguimos obter uma compreensão mais abrangente da evolução desse setor da indústria cinematográfica.
+
+## 📌 Sobre
+
+- [The Movie Database API](https://developer.themoviedb.org/docs/getting-started)
+
+  This product uses the TMDB API but is not endorsed or certified by TMDB.
+
+<div align="center">
+  <br />
+  <a href="https://www.themoviedb.org">
+  <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg" height="100px" alt="Logo TMDB" />
+  </a>
+</div>
+
+## 📃 LICENSE
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
