@@ -5,7 +5,7 @@ services:
     build:
       context: .
     volumes:
-      - ~/Development/Data-Analytics-Scholarship-Program/Desafio-Final/data:/app/data
+      - ../assets/data:/app/data
       - ./logs:/app/logs
       - ./local-output:/app/output
       - ./local-output/tmdb_movies:/app/output/tmdb_movies
